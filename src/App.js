@@ -23,8 +23,8 @@ function App() {
 
       const block = await alchemy.core.getBlockWithTransactions(blockNumber);
 
-      console.log(block.transactions);
-      setLatestTransactions(block.transactions);
+      // console.log(block.transactions.slice(0, 10));
+      setLatestTransactions(block.transactions.slice(0, 10));
     }
 
     async function getCurrentGasPrice() {
@@ -44,9 +44,16 @@ function App() {
       <div className="App">Block Number: {blockNumber}</div>
       <div className="App"> Gas Price: {gasPrice}</div>
 
-      {latestTransactions.map((transaction) => (
-        <li>{transaction.hash}</li>
-      ))}
+      <div className="App">
+        <p>Latest Transactions</p>
+        {latestTransactions.map((transaction) => (
+          <div>
+            <li>Transaction: {transaction.hash}</li>
+            <li>From: {transaction.from}</li>
+            <li>To: {transaction.to}</li>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
